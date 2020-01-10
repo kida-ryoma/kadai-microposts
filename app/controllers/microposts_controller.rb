@@ -10,7 +10,7 @@ class MicropostsController < ApplicationController
     else
       @microposts = current_user.feed_microposts.order(id: :desc).page(params[:page])
       flash.now[:danger] = "メッセージの投稿に失敗しました"
-      render "toppage/index"
+      render "toppages/index"
     end
   end
 
@@ -28,6 +28,7 @@ class MicropostsController < ApplicationController
 
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
+    
     unless @micropost
       redirect_to root_url
     end
