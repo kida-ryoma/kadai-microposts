@@ -1,16 +1,16 @@
 <ul class="list-unstyled">
-  <% microposts.each do |micropost| %>
+  <% likes.each do |like| %>
     <li class="media mb-3">
-      <img class="mr-2 rounded" src="<%= gravatar_url(micropost.user, { size: 50 }) %>" alt="">
+      <img class="mr-2 rounded" src="<%= gravatar_url(like.user, { size: 50 }) %>" alt="">
       <div class="media-body">
         <div>
-          <%= link_to micropost.user.name, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+          <%= link_to micropost.user.name, user_path(like.user) %> <span class="text-muted">posted at <%= like.created_at %></span>
         </div>
         <div>
-          <p><%= micropost.content %></p>
+          <p><%= like.content %></p>
         </div>
         <div>
-          <% if current_user.alr_favorite?(micropost) %>
+          <% if current_user.alr_favorite?(like) %>
             <%= form_with(model: current_user.favorites.find_by(micropost_id: micropost.id), local: true, method: :delete) do |f| %>
               <%= hidden_field_tag :favorite_id, micropost.id %>
               <%= f.submit 'Unlike', class: 'btn btn-danger btn-sm' %>
